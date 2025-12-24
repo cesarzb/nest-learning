@@ -1,10 +1,45 @@
 import { Injectable } from '@nestjs/common';
+import type { Product } from './interfaces/product.interface';
+import CreateProductDto from './dto/create-product.dto';
 
 @Injectable()
 export class ProductsService {
-  async findAll(): Promise<string[]> {
+  private products: Product[] = [
+    {
+      id: 1,
+      title: 'fish',
+      price: 1,
+    },
+    {
+      id: 2,
+      title: 'potatoes',
+      price: 2,
+    },
+    {
+      id: 3,
+      title: 'nail',
+      price: 3,
+    },
+    {
+      id: 4,
+      title: 'surfing board',
+      price: 4,
+    },
+  ];
+
+  async findAll(): Promise<Product[]> {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    const products = ['fish', 'potatoes', 'nail', 'surfing board'];
-    return products;
+    return this.products;
+  }
+
+  create(createProductDto: CreateProductDto): Product {
+    const newProduct: Product = {
+      id: Math.floor(Math.random() * 1000),
+      ...createProductDto,
+    };
+
+    this.products.push(newProduct);
+
+    return newProduct;
   }
 }
