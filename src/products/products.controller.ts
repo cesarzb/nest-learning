@@ -21,8 +21,8 @@ export class ProductsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): string {
-    return `Returning product with id: ${id}`;
+  findOne(@Param('id') id: string): Product | undefined {
+    return this.productsService.findById(Number(id));
   }
 
   @Post()

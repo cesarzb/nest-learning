@@ -32,6 +32,10 @@ export class ProductsService {
     return this.products;
   }
 
+  findById(id: number): Product | undefined {
+    return this.products.find((product) => product.id === id);
+  }
+
   create(createProductDto: CreateProductDto): Product {
     const newProduct: Product = {
       id: Math.floor(Math.random() * 1000),
