@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { Product } from './interfaces/product.interface';
 import CreateProductDto from './dto/create-product.dto';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class ProductsService {
@@ -32,8 +33,14 @@ export class ProductsService {
     return this.products;
   }
 
-  findById(id: number): Product | undefined {
-    return this.products.find((product) => product.id === id);
+  findById(id: number): Product {
+    const product = this.products.find((product) => product.id === id);
+
+    if (!product) {
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
+
+    return product;
   }
 
   findByTerm(term?: string, limit?: string): Product[] {
