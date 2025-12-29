@@ -16,8 +16,8 @@ export class ProductsController {
   searchProduct(
     @Query('term') term?: string,
     @Query('limit') limit?: string,
-  ): { term?: string; limit?: string } {
-    return { term: term, limit: limit };
+  ): Product[] {
+    return this.productsService.findByTerm(term, limit);
   }
 
   @Get(':id')

@@ -36,6 +36,18 @@ export class ProductsService {
     return this.products.find((product) => product.id === id);
   }
 
+  findByTerm(term?: string, limit?: string): Product[] {
+    let result: Product[] = [];
+    if (term) {
+      result = this.products.filter((product) => product.title.includes(term));
+    }
+
+    if (limit) {
+      result = result.slice(0, Number(limit));
+    }
+    return result;
+  }
+
   create(createProductDto: CreateProductDto): Product {
     const newProduct: Product = {
       id: Math.floor(Math.random() * 1000),
