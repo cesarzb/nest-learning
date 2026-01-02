@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import type { Product } from './interfaces/product.interface';
-import CreateProductDto from './dto/create-product.dto';
+import type { Product } from './interfaces';
+import { CreateProductDto } from './dto';
 import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
